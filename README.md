@@ -9,7 +9,8 @@ The **Image Quality Modifier** app is a simple, efficient tool designed for adju
 - **Zoom and Pan**: Use the scroll wheel to zoom and right-click + drag to pan across the image.
 - **Automatic Save Location**: Saved images are stored in the same folder with a "modified_" filename prefix.
 
-[]()
+
+![ImageQualityModifierTest](ImageQualityModifierTest.png)
 
 ## System Requirements
 
