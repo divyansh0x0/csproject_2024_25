@@ -1,7 +1,4 @@
-import io
-import math
-import os
-import time
+import io, os, math, time
 
 import pygame
 from pygame import display, event, image, transform, draw
@@ -13,7 +10,7 @@ from components.toast import Toast
 
 # Validate img path and file type
 def is_valid_img_path(im_path):
-    return os.path.exists(im_path) and os.path.isfile(im_path) and os.path.splitext(im_path)[1].lower() in [".png",".jpeg",".jpg",".webp"]
+    return os.path.exists(im_path) and os.path.isfile(im_path) and os.path.splitext(im_path)[1].lower() in [".png",".jpeg",".jpg"]
 
 
 # Format byte size to human-readable format
@@ -21,10 +18,9 @@ def format_byte_count(size_bytes):
     if size_bytes == 0:
         return "0B"
     size_name = ("B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
-    i = int(math.floor(math.log(size_bytes, 1024)))
-    p = math.pow(1024, i)
-    s = round(size_bytes / p, 2)
-    return "%s %s" % (s, size_name[i])
+    i = int(math.floor(math.log(size_bytes, 1024))) 
+    s = round(size_bytes / 1024**i, 2)
+    return f"{s} {size_name[i]}"
 
 # Main application class
 class ImageQualityModifier:
@@ -243,6 +239,7 @@ class ImageQualityModifier:
         self.information_text_box_size = y
 
     def handle_event(self, event_data):
+        # checks if user dropped a file
         if event_data.type == pygame.DROPFILE:
             self.load_img(event_data.dict["file"])
         
@@ -253,7 +250,7 @@ class ImageQualityModifier:
                 if self.save_btn.containsPoint(pos[0], pos[1]):
                     self.was_save_btn_pressed = True
             elif event_data.dict["button"] == 3:
-                # checks if user is draggin the mouse around
+                # checks if user is dragging the mouse around
                 pygame.mouse.get_rel()
                 self.is_dragging = True
 
@@ -274,7 +271,6 @@ class ImageQualityModifier:
                 self.zoom = self.MIN_ZOOM
             if self.zoom > self.MAX_ZOOM:
                 self.zoom = self.MAX_ZOOM
-            print(self.zoom)
 
     def loop(self):
         max_fps = 60
