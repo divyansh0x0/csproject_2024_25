@@ -45,7 +45,8 @@ class Slider:
         bounds = (self.pos[0], self.pos[1], self.size[0], self.size[1])
         pygame.draw.rect(surface, self.bg_color, rect=bounds, border_radius=10)
         # draw slider
-        bounds = (self.pos[0], self.pos[1], ratio * self.size[0], self.size[1])
+        pad = 5
+        bounds = (self.pos[0] + pad, self.pos[1] + pad, ratio * (self.size[0] - 2 * pad), self.size[1] - 2 * pad)
         pygame.draw.rect(surface, self.slider_color, rect=bounds, border_radius=10)
 
         # get the size of rectangle that can store the text

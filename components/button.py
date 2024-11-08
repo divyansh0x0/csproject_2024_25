@@ -20,11 +20,14 @@ class Button:
     def draw(self, surface):
         mouse_pos = pygame.mouse.get_pos()
         bg_color = self.hover_color if self.contains_point(mouse_pos[0], mouse_pos[1]) else self.bg_color
+        # draws background of button
         pygame.draw.rect(surface, bg_color, rect=(self.pos[0], self.pos[1], self.size[0], self.size[1]),
                          border_radius=10)
         txt_size = self.font.size(self.text)
-        surface.blit(self.font.render(self.text, True, self.text_color),
-                     (self.pos[0] + self.size[0] / 2 - txt_size[0] / 2, self.pos[1] + self.size[1] / 2 - txt_size[1] / 2))
+        txt_surface = self.font.render(self.text, True, self.text_color)
+        txt_pos = (self.pos[0] + (self.size[0] - txt_size[0]) / 2, self.pos[1] + (self.size[1] - txt_size[1]) / 2)
+        # draws text on button background
+        surface.blit(txt_surface, txt_pos)
 
     # Set button text
     def set_text(self, text):
