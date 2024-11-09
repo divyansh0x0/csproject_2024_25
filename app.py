@@ -43,16 +43,21 @@ class App:
             print(e)
 
         # RGB colors
-        self.img_info_text_bg = (26, 26, 26)
-        self.img_info_text_color = (250, 250, 250)
-        self.__bg_color = (13, 13, 13)
-        slider_bg = (22, 69, 85)
-        slider_fg = (34, 125, 155)
-        slider_text_color = (20, 20, 20)
-        save_btn_bg = (31, 132, 90)
-        save_btn_hover_color = (34, 160, 107)
-        save_btn_text_color = (10, 10, 10)
-
+        self.img_info_text_bg = pygame.Color("#191c20")
+        self.img_info_text_color = pygame.Color("#e2e2e9")
+        self.__bg_color = pygame.Color("#111318")
+        
+        slider_bg = pygame.Color("#284777")
+        slider_fg = pygame.Color("#aac7ff")
+        slider_text_color = pygame.Color("#000000")
+        
+        save_btn_bg = pygame.Color("#bec6dc")
+        save_btn_hover_color = pygame.Color("#d5ddf5")
+        save_btn_text_color = pygame.Color("#283141")
+        
+        toast_bg =  pygame.Color("#33353a")
+        toast_fg = pygame.Color("#e2e2e9")
+        
         # booleans
         self.is_dragging_on_res_slider = False
         self.is_dragging_on_quality_slider = False
@@ -94,7 +99,7 @@ class App:
         self.save_btn = Button(save_btn_bg, save_btn_hover_color, save_btn_text_color, self.font, "Save",
                                (80, 40), (0, 0))
         # A toast component used to display popup messages
-        self.toast = Toast("Drag an image here", self.font, 5, (255, 255, 255), (0, 0, 0))
+        self.toast = Toast("Drag an image here", self.font, 5, toast_fg, toast_bg)
 
         # two sliders used for changing resolution of image or quality of image
 
@@ -229,10 +234,21 @@ class App:
         elif event_data.type == pygame.MOUSEBUTTONDOWN:
             # check if left mouse button was pressed
             if event_data.dict["button"] == 1:
-                pos = event_data.dict["pos"]
+                mouse_pos = event_data.dict["pos"]
                 # checks if save button was pressed
-                if self.save_btn.contains_point(pos[0], pos[1]):
+                if self.save_btn.contains_point(mouse_pos[0], mouse_pos[1]):
                     self.was_save_btn_pressed = True
+                #check if resolution slider was pressed                        
+                if self.resolution_slider.contains_point(mouse_pos[0], mouse_pos[1]):
+                    self.is_dragging_on_res_slider = True
+                    slider_ratio = (mouse_pos[0] - self.resolution_slider.pos[0]) / self.resolution_slider.size[0]
+                    self.resolution_slider.set_value_ratio(slider_ratio)
+                #check if quality slider was pressed                        
+                        
+                if self.quality_slider.contains_point(mouse_pos[0], mouse_pos[1]):
+                    self.is_dragging_on_quality_slider = True
+                    slider_ratio = (mouse_pos[0] - self.quality_slider.pos[0]) / self.quality_slider.size[0]
+                    self.quality_slider.set_value_ratio(slider_ratio)
             # check if right mouse button is pressed
             elif event_data.dict["button"] == 3:
                 # checks if user is dragging the mouse around
@@ -240,12 +256,15 @@ class App:
                 self.is_right_mouse_btn_pressed_on_window = True
 
         elif event_data.type == pygame.MOUSEBUTTONUP:
-            pos = event_data.dict["pos"]
+            mouse_pos = event_data.dict["pos"]
             # Checks if save button was released
-            if self.was_save_btn_pressed and self.save_btn.contains_point(pos[0], pos[1]):
+            if self.was_save_btn_pressed and self.save_btn.contains_point(mouse_pos[0], mouse_pos[1]):
                 self.save_img()
                 self.was_save_btn_pressed = False
-
+            if self.resolution_slider.contains_point(mouse_pos[0], mouse_pos[1]):
+                self.is_dragging_on_res_slider = False    
+            if self.quality_slider.contains_point(mouse_pos[0], mouse_pos[1]):
+                self.is_dragging_on_quality_slider
             self.is_right_mouse_btn_pressed_on_window = False
 
         # checks if user is zooming
@@ -276,7 +295,8 @@ class App:
 
         # check if mouse is on resolution slider or user has been dragging on slider
         # if yes then update the value of the slider
-        if self.resolution_slider.contains_point(mouse_pos[0], mouse_pos[1]) or self.is_dragging_on_res_slider:
+
+        if self.is_dragging_on_res_slider:
             if pygame.mouse.get_pressed()[0]:
                 # if mouse is on slider and left mouse button is pressed then set is_dragging_on_slider to True
                 # and set the value of the slider based on position of mouse on slider
@@ -307,7 +327,8 @@ class App:
 
         # check if mouse is on resolution slider or user has been dragging on slider
         # if yes then update the value of the slider
-        if self.quality_slider.contains_point(mouse_pos[0], mouse_pos[1]) or self.is_dragging_on_quality_slider:
+
+        if self.is_dragging_on_quality_slider:
             if pygame.mouse.get_pressed()[0]:
                 # if mouse is on slider and left mouse button is pressed then set is_dragging_on_slider to True
                 # and set the value of the slider based on position of mouse on slider
@@ -426,7 +447,7 @@ class App:
             pygame.display.update()
             t1 = t2
 
-
+# Start app
 if __name__ == "__main__":
     app = App()
     app.loop()
