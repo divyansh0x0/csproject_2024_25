@@ -41,19 +41,30 @@ class Slider:
     # Draw slider on the surface
     def draw(self, surface):
         ratio = self.get_ratio()
+
         # draw background color
-        bounds = (self.pos[0], self.pos[1], self.size[0], self.size[1])
-        pygame.draw.rect(surface, self.bg_color, rect=bounds, border_radius=10)
+        bg_rect = (self.pos[0], self.pos[1], self.size[0], self.size[1])
+        pygame.draw.rect(surface, self.bg_color, rect=bg_rect, border_radius=10)
+
         # draw slider
         pad = 5
-        bounds = (self.pos[0] + pad, self.pos[1] + pad, ratio * (self.size[0] - 2 * pad), self.size[1] - 2 * pad)
-        pygame.draw.rect(surface, self.slider_color, rect=bounds, border_radius=10)
+        slider_rect = (self.pos[0] + pad, self.pos[1] + pad, ratio * (self.size[0] - 2 * pad), self.size[1] - 2 * pad)
+        pygame.draw.rect(surface, self.slider_color, rect=slider_rect, border_radius=10)
 
-        # get the size of rectangle that can store the text
-        txt_size_rect = self.font.size(self.text)
+        # draw a circle
+        radius = self.size[1] / 2 + pad
+        center_x = max(int(slider_rect[0] + slider_rect[2] - radius + 2*pad), slider_rect[0])
+        center_y = int(slider_rect[1] + slider_rect[3] / 2)
+        pygame.draw.circle(surface, self.bg_color, (center_x,center_y), radius)
+
+        # draw a smaller circle
+        radius -= pad
+        pygame.draw.circle(surface, self.slider_color, (center_x,center_y), radius)
+
         # draw text
-        x = self.pos[0] + (self.size[0] - txt_size_rect[0]) / 2
-        y = self.pos[1] + (self.size[1] - txt_size_rect[1]) / 2
+        txt_rect = self.font.size(self.text)
+        x = self.pos[0] + (self.size[0] - txt_rect[0]) / 2
+        y = self.pos[1] + (self.size[1] - txt_rect[1]) / 2
         text_surface = self.font.render(self.text, True, self.text_color)
         surface.blit(text_surface, (x, y))
 
