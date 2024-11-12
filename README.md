@@ -16,6 +16,8 @@ The **Image Quality Modifier** app is a simple, efficient tool designed for adju
 
 - **Python** 3.12.0 or above
 - **Pygame** 2.5.2
+- **Pillow** 11.0.0
+
 
 ## Installation
 
@@ -26,10 +28,11 @@ The **Image Quality Modifier** app is a simple, efficient tool designed for adju
    cd UtilityScripts/ImageQualityModifier
    ```
 
-2. Pygame is the only required dependencies:
+2. Pygame and Pillow are the only required dependencies:
 
    ```bash
    pip install pygame==2.5.2
+   pip install pillow==11.0.0
    ```
 
 ## Usage
