@@ -1,6 +1,6 @@
 # Image Quality Modifier
 
-The **Image Quality Modifier** app is a simple, efficient tool designed for adjusting image resolution. This application provides a fast and convenient way to resize images without relying on complex software or online tools, making it especially helpful for tasks like mass online registrations where images must meet specific size requirements.
+The **Image Quality Modifier** app is a simple, efficient tool designed for adjusting JPEG image resolution and compression quality. This application provides a fast and convenient way to resize images without relying on complex software or online tools, making it especially helpful for tasks like mass online registrations where images must meet specific size requirements.
 
 ## Features
 
@@ -21,11 +21,10 @@ The **Image Quality Modifier** app is a simple, efficient tool designed for adju
 
 ## Installation
 
-1. Clone the repository from GitHub:
+1. Clone the repository from GitHub using Git:
 
    ```bash
-   git clone https://github.com/divyansh0x0/UtilityScripts.git
-   cd UtilityScripts/ImageQualityModifier
+   git clone https://github.com/divyansh0x0/csproject_2024_25.git
    ```
 
 2. Pygame and Pillow are the only required dependencies:
@@ -37,7 +36,7 @@ The **Image Quality Modifier** app is a simple, efficient tool designed for adju
 
 ## Usage
 
-1. Open a terminal and navigate to the `ImageQualityModifier` directory.
+1. Open a terminal and navigate to the `csproject_2024_25` directory.
 2. Run the app by typing:
 
    ```bash
