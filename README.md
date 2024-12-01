@@ -26,8 +26,14 @@ The **Image Quality Modifier** app is a simple, efficient tool designed for adju
    ```bash
    git clone https://github.com/divyansh0x0/csproject_2024_25.git
    ```
+   Or download the source code as ZIP file
 
-2. Pygame and Pillow are the only required dependencies:
+   ![Screenshot 2024-12-01 193510](https://github.com/user-attachments/assets/c249298b-2f47-439c-974d-e7c501e097f9)
+
+   Or download it from the release section
+
+
+3. Install Pygame and Pillow using `pip`:
 
    ```bash
    pip install pygame==2.5.2
